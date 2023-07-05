@@ -1,14 +1,14 @@
 using System;
 using Xunit;
-using Domain.Tests;
+using Domain;
 using FluentAssertions;
 
 namespace FlightProject
 {
-    public class UnitTest1
+    public class FlightSpecification
     {
         [Fact]
-        public void Test1()
+        public void Booking_reduces_the_number_of_seats()
         {
             var flight = new Flight(seatCapacity: 3);
 
