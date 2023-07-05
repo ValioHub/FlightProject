@@ -9,9 +9,15 @@ namespace Domain
         {
             RemainningNumberOfSeats = seatCapacity;
         }
-        public void Book(string passangerEmail, int numberOfSeats)
+        public object? Book(string passangerEmail, int numberOfSeats)
         {
+            if (numberOfSeats > this.RemainningNumberOfSeats)
+            {
+                return new OverbookingError();
+            }
+
             RemainningNumberOfSeats -= numberOfSeats;
+            return null;
         }
     }
 }

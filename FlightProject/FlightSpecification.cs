@@ -12,9 +12,21 @@ namespace FlightProject
         {
             var flight = new Flight(seatCapacity: 3);
 
-            flight.Book("email@email.com",1);
+            flight.Book("email@email.com", 1);
 
             flight.RemainningNumberOfSeats.Should().Be(2);
+        }
+        [Fact]
+        public void Avoids_overbooking()
+        {
+            // Given
+            var flight = new Flight(seatCapacity: 3);
+
+            // When
+            var error = flight.Book("email@email.com", 4);
+
+            // Then
+            error.Should().BeOfType<OverbookingError>();
         }
     }
 }
