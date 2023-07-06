@@ -12,7 +12,8 @@ namespace FlightProject
         [InlineData(6, 3, 3)]
         [InlineData(10, 6, 4)]
         [InlineData(12, 8, 4)]
-        public void Booking_reduces_the_number_of_seats(int seatCapacity, int numberOfSeats, int remainningNumberOfSeats)
+        public void Booking_reduces_the_number_of_seats(int seatCapacity, int numberOfSeats,
+            int remainningNumberOfSeats)
         {
             var flight = new Flight(seatCapacity: seatCapacity);
 
@@ -46,6 +47,23 @@ namespace FlightProject
 
             flight.Book(passangerEmail: "email@email.com", numberOfSeats: 4);
             flight.BookingList.Should().ContainEquivalentOf(new Booking("email@email.com", 4));
+        }
+        [Theory]
+        [InlineData(3,1,1,3)]
+        [InlineData(4,2,2,4)]
+        [InlineData(7, 5, 4, 6)]
+        public void Canceling_booking_frees_up_the_seats(int initialCapacity, 
+            int numberofSeatsTOBook, int numberOfSeatsToCancel, int remainingNumberOfSeats)
+        {
+            // Given
+            var flight = new Flight(initialCapacity);
+            flight.Book(passangerEmail: "email@email.com", numberOfSeats: numberofSeatsTOBook);
+            
+            // When
+            flight.CancelBooking(passangerEmail: "email@email.com", numberOfSeats: numberOfSeatsToCancel);
+
+            // Then
+            flight.RemainingNumberOfSeats.Should().Be(remainingNumberOfSeats);
         }
     }
 }

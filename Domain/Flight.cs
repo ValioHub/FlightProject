@@ -25,5 +25,10 @@ namespace Domain
 
             return null;
         }
+
+        public void CancelBooking(string passangerEmail, int numberOfSeats)
+        {
+            RemainingNumberOfSeats += numberOfSeats;
+        }
     }
 }
