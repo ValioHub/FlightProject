@@ -9,6 +9,7 @@ namespace Domain
         List<Booking> bookingList = new();
         public IEnumerable<Booking> BookingList => bookingList;
         public int RemainingNumberOfSeats { get; set; }
+        public Guid Id { get; }
         public Flight(int seatCapacity)
         {
             RemainingNumberOfSeats = seatCapacity;
