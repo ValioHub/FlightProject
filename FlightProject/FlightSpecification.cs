@@ -28,5 +28,12 @@ namespace FlightProject
             // Then
             error.Should().BeOfType<OverbookingError>();
         }
+        [Fact]
+        public void Books_flights_successfully()
+        {
+            var flight = new Flight(seatCapacity: 3);
+            var error = flight.Book("email@email.com", 1);
+            error.Should().BeNull();
+        }
     }
 }
