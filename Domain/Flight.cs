@@ -1,22 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain
 {
     public class Flight
     {
-        public int RemainningNumberOfSeats { get; set; }
+        public List<Booking> BookingList { get; set; } = new List<Booking>();
+        public int RemainingNumberOfSeats { get; set; }
         public Flight(int seatCapacity)
         {
-            RemainningNumberOfSeats = seatCapacity;
+            RemainingNumberOfSeats = seatCapacity;
         }
         public object? Book(string passangerEmail, int numberOfSeats)
         {
-            if (numberOfSeats > this.RemainningNumberOfSeats)
+            if (numberOfSeats > this.RemainingNumberOfSeats)
             {
                 return new OverbookingError();
             }
 
-            RemainningNumberOfSeats -= numberOfSeats;
+            RemainingNumberOfSeats -= numberOfSeats;
+
+            BookingList.Add(new Booking(passangerEmail, numberOfSeats));
+
             return null;
         }
     }

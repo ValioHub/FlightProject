@@ -18,7 +18,7 @@ namespace FlightProject
 
             flight.Book("email@email.com", numberOfSeats);
 
-            flight.RemainningNumberOfSeats.Should().Be(remainningNumberOfSeats);
+            flight.RemainingNumberOfSeats.Should().Be(remainningNumberOfSeats);
         }
         [Fact]
         public void Avoids_overbooking()
@@ -38,6 +38,14 @@ namespace FlightProject
             var flight = new Flight(seatCapacity: 3);
             var error = flight.Book("email@email.com", 1);
             error.Should().BeNull();
+        }
+        [Fact]
+        public void Remembers_bookings()
+        {
+            var flight = new Flight(seatCapacity: 150);
+
+            flight.Book(passangerEmail: "email@email.com", numberOfSeats: 4);
+            flight.BookingList.Should().ContainEquivalentOf(new Booking("email@email.com", 4));
         }
     }
 }
