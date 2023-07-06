@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain
 {
@@ -26,9 +27,16 @@ namespace Domain
             return null;
         }
 
-        public void CancelBooking(string passangerEmail, int numberOfSeats)
+        public object? CancelBooking(string passangerEmail, int numberOfSeats)
         {
+            if (!bookingList.Any(booking => booking.Email == passangerEmail))
+            {
+                return new BookingNotFoundError();
+            }
+
             RemainingNumberOfSeats += numberOfSeats;
+
+            return null;
         }
     }
 }
