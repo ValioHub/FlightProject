@@ -10,6 +10,8 @@ namespace Domain
         public IEnumerable<Booking> BookingList => bookingList;
         public int RemainingNumberOfSeats { get; set; }
         public Guid Id { get; }
+        [Obsolete("Needed by EntityFramework")]
+        Flight() { }
         public Flight(int seatCapacity)
         {
             RemainingNumberOfSeats = seatCapacity;
