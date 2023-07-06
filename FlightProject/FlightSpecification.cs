@@ -7,14 +7,18 @@ namespace FlightProject
 {
     public class FlightSpecification
     {
-        [Fact]
-        public void Booking_reduces_the_number_of_seats()
+        [Theory]
+        [InlineData(3,1,2)]
+        [InlineData(6, 3, 3)]
+        [InlineData(10, 6, 4)]
+        [InlineData(12, 8, 4)]
+        public void Booking_reduces_the_number_of_seats(int seatCapacity, int numberOfSeats, int remainningNumberOfSeats)
         {
-            var flight = new Flight(seatCapacity: 3);
+            var flight = new Flight(seatCapacity: seatCapacity);
 
-            flight.Book("email@email.com", 1);
+            flight.Book("email@email.com", numberOfSeats);
 
-            flight.RemainningNumberOfSeats.Should().Be(2);
+            flight.RemainningNumberOfSeats.Should().Be(remainningNumberOfSeats);
         }
         [Fact]
         public void Avoids_overbooking()
