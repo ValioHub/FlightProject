@@ -16,7 +16,7 @@ namespace Domain
         {
             RemainingNumberOfSeats = seatCapacity;
         }
-        public object? Book(string passangerEmail, int numberOfSeats)
+        public object? Book(string passengerEmail, int numberOfSeats)
         {
             if (numberOfSeats > this.RemainingNumberOfSeats)
             {
@@ -25,14 +25,14 @@ namespace Domain
 
             RemainingNumberOfSeats -= numberOfSeats;
 
-            bookingList.Add(new Booking(passangerEmail, numberOfSeats));
+            bookingList.Add(new Booking(passengerEmail, numberOfSeats));
 
             return null;
         }
 
-        public object? CancelBooking(string passangerEmail, int numberOfSeats)
+        public object? CancelBooking(string passengerEmail, int numberOfSeats)
         {
-            if (!bookingList.Any(booking => booking.Email == passangerEmail))
+            if (!bookingList.Any(booking => booking.Email == passengerEmail))
             {
                 return new BookingNotFoundError();
             }
