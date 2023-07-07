@@ -34,11 +34,13 @@ namespace Application.Tests
             bookingService.FindBooking(flight.Id).Should().ContainEquivalentOf(
                 new BookingRm(passengerEmail, numberOfSeats));
         }
-        [Fact]
-        public void Cancels_booking()
+        [Theory]
+        [InlineData(3)]
+        [InlineData(10)]
+        public void Cancels_booking(int initialCapacity)
         {
             // Given
-            var flight = new Flight(3);
+            var flight = new Flight(initialCapacity);
             entities.Flights.Add(flight);
 
             bookingService.Book(new BookDto(flightId: flight.Id, passengerEmail: "email@email.com",
@@ -49,7 +51,7 @@ namespace Application.Tests
                 numberOfSeats:2));
 
             // Then
-            bookingService.GetRemainingNumberOfSeatsFor(flight.Id).Should().Be(3);
+            bookingService.GetRemainingNumberOfSeatsFor(flight.Id).Should().Be(initialCapacity);
         }
     }
 }
